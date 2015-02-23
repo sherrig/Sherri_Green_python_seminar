@@ -64,3 +64,8 @@ def ll(*args):
     for i in args:
         inverse += 1.0/i
     return 1.0/inverse
+
+# If you would like to put this somewhere more useful,
+# please email esg-python-staff@mit.edu about office
+# hours. Constants like these should be something you
+# have universal access to, not just in this folder.

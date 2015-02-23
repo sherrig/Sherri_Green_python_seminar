@@ -25,3 +25,5 @@ print "E-field at ", v2.pos, "is", v2.axis, "N/C"
 print "E-field at ", v3.pos, "is", v3.axis, "N/C"
 print "E-field at ", v4.pos, "is", v4.axis, "N/C"
 print "E-field at ", v5.pos, "is", v5.axis, "N/C"
+
+# Code works as expected. Pass.
