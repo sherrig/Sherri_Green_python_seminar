@@ -1,0 +1,33 @@
+#Gauss's law Lecture 3
+#Sherri Green
+#2/24/15
+
+from math import *
+from visual import *
+
+e0=8.854187817*10**-12
+lamda = 10**-5 #C/m
+
+P = [1, pi/4, 2]
+
+#Calculate E-field vector
+Emag = (lamda)/(2*pi*e0*P[0])
+
+E = [None, None, None]   #(x,y,z)
+E[0] = (Emag * P[2])/P[0]
+E[1] = (Emag * P[0] * cos(P[1]))/P[0]
+E[2] = (Emag * P[0] * sin(P[1]))/P[0]
+
+print E
+
+#Draw cylinder
+
+rodcharge = cylinder (pos = (-4, 0,0), radius = .1,
+                      axis = (8,0,0), color = color.blue)
+gaussian = cylinder (pos = (-2, 0,0), radius = P[0], opacity = .5,
+                    axis = (4,0,0), color = color.white)
+Efieldvector = arrow (pos = (
+
+                      
+
+
