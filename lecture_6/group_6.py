@@ -17,8 +17,6 @@ class capacitor:
     def __init__(self, capacitance, ref):
         self.capacitance = float(capacitance)               # This will be in Farads
         self.q = 0.0
-        self.ref = ref
-        ref[self] = self.q
 
     def charge(self, voltage):
         self.q = self.capacitance * voltage                 # This will be in Coulombs
