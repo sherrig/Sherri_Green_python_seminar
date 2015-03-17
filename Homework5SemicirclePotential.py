@@ -24,19 +24,19 @@ def Phi(P):
     phi = 0.0
 
     for i in xrange (int(theta_tot/dtheta)):
-        theta = theta_range[0] - i*dtheta                    #position of angle
-        lamda = 10.0e-6/(1+ exp(-5*(theta-pi/2)))
-        pos = np.array(semicircle[0]) + np.array([.5*cos(theta),       #position is top of semicircle plus conversion from polar -- have to subtract in z because it's going down from the top
-                                                  0, -(.5+.5*sin(theta))])
+        theta = theta_range[1] + i*dtheta                    #position of angle
+        lamda = (10.0e-6)/(1+ exp(-5*(theta-(pi/2))))
+        pos = np.array(semicircle[0] + np.array([.5*cos(theta),       #position is top of semicircle plus conversion from polar
+                                                  0, (.5+.5*sin(theta))]))
         dq = lamda * .5 * dtheta
         r = np.linalg.norm(P-pos)
         phi += k * dq/r
         return phi    
         
-path = range(50)
+path = range(500)
 V =[]
 for j in path:
-    V.append(Phi([0+ j/50, .25 - j/100, 0 + j/100]))
+    V.append(Phi(np.array([0+ (j/500.0), .25 - (j/1000.0), 0 + (j/1000.0)])))
 
 plot (path, V)
 show()
