@@ -6,7 +6,7 @@
 
 import time
 from const import E0
-from math import cos, sin, pi, exp, sqrt, log
+from math import cos, sin, pi, exp, sqrt, log, atan
 import numpy as np
 from matplotlib.pyplot import plot, show
 
@@ -23,26 +23,22 @@ def Phi(P):
     phi = 0.0
 
     for i in xrange (int(theta_tot/dtheta)):
-        theta = theta_range[0] + i*dtheta                    #position of angle
-        lamda = 10.0e-6/(1+ exp(-5*(theta-pi/2)))
-        pos = np.array(semicircle[0]) + np.array([.5*cos(theta),       #position is top of semicircle plus conversion from polar -- have to subtract in z because it's going down from the top
-                                                  0, -(.5+.5*sin(theta))])
+        theta = theta_range[1] + i*dtheta                    #position of angle
+        lamda = (10.0e-6)/(1+ exp(-5*(theta-(pi/2))))
+        pos = np.array(semicircle[0] + np.array([.5*cos(theta),       #position is top of semicircle plus conversion from polar
+                                                  0, (.5+.5*sin(theta))]))
         dq = lamda * .5 * dtheta
         r = np.linalg.norm(P-pos)
         phi += k * dq/r
         return phi
-
+    
 #Analytical potential function
 def Phi_an(P):
-    def integrated_potential (theta):
-        value = (1/5)*(log(exp(5*theta)+exp(5*pi/2)))
-        return value
-        
-    phi_an = (((k*10.0e-6*.5)/(sqrt(.5**2 + P[1]**2)))
-              * (integrated_potential(pi/2)
-                 - integrated_potential(-pi/2)))
+    phi_an = abs(((pi + (1/5)*(log(2/(1+exp(5*pi)))))* k *
+              10.0e-6 * (atan(P[1]) - pi/2)))
     return phi_an
 
+    
 Vnum = []
 Vth = []
 err = []
@@ -50,8 +46,8 @@ err = []
 path = range(200)
 
 for j in path:
-    Vnum.append(Phi([0, 0 + j/100, 0]))
-    Vth.append(Phi_an([0, 0 + j/100, 0]))
+    Vnum.append(Phi([0, 0 + j/100.0, 0.5]))
+    Vth.append(Phi_an([0, 0 + j/100.0, 0.5]))
     err.append(abs((Vnum[j]-Vth[j])/Vth[j]))
 
 #Calculate max magnitude of error
@@ -64,3 +60,5 @@ print 'Maximum value of the relative error =', ma
 plot(path, Vnum)
 plot (path, Vth)
 show()
+
+#Changing dtheta doesn't seem to change my error, but error also seems to be pretty large, so maybe one of my voltages are wrong.
