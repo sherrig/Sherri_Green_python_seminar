@@ -24,18 +24,18 @@ def Phi(P):
 
     for i in xrange (int(theta_tot/dtheta)):
         theta = theta_range[1] + i*dtheta                    #position of angle
-        lamda = (10.0e-6)/(1+ exp(-5*(theta-(pi/2))))
+        lamda = (1e-6)/(1+ exp(-5*(theta-(pi/2))))
         pos = np.array(semicircle[0] + np.array([.5*cos(theta),       #position is top of semicircle plus conversion from polar
-                                                  0, (.5+.5*sin(theta))]))
+                                                  0, (.5 + .5*sin(theta))]))
         dq = lamda * .5 * dtheta
         r = np.linalg.norm(P-pos)
         phi += k * dq/r
-        return phi
+    return phi
     
 #Analytical potential function
 def Phi_an(P):
     phi_an = abs(((pi + (1/5)*(log(2/(1+exp(5*pi)))))* k *
-              10.0e-6 * (atan(P[1]) - pi/2)))
+              10.0e-6 * (atan(P[1]) - pi/2)))  #### Uhm...double check!
     return phi_an
 
     
