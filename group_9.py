@@ -12,20 +12,20 @@
 
 import numpy as np
 dt = 1e-3                                           # Simulator Settings
-numPoints = 1e4
+numPoints = 1e5
 
 m = 1e-22                                           # Particle Properties
 q = 1.6e-19
 
 startPos = np.array((0.0, 0.0, 0.0))                # Initial Conditions
-startVel = np.array((10.0, 0.3, 0.))
+startVel = np.array((10.0, 0.0, 0.))
 
-B = np.array((0., 1e-3, 0.))                        # Environmental Conditions
+B = np.array((0, 1e-3, 0.))                        # Environmental Conditions
 
 with open('traj.txt', 'w', 0) as text:              # Open a writeable text file
     p = startPos                                    # Copy/paste w/o `with` then indent & add file I/O
     v = startVel
-    for iteration in xrange(numPoints):
+    for iteration in xrange(int(numPoints)):
         t = dt * iteration
         f = np.cross(q * v, B)                      # Magnetic force calculation
         a = f / m                                   # Side idea: add a friction term! :)
