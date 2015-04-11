@@ -7,16 +7,17 @@ import numpy as np
 from const import mu0, E0
 from math import pi
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import show
 dt = 1e-3                                           # Simulator Settings
-numPoints = 100
+numPoints = 1e5
 
 m = 1e-22                                           # Particle Properties
 q = 1.6e-19
 lamda = 1e-15 #C/m
 I = 1e-4 #Amps
 
-startPos = np.array((1.0, 2.0, 1.0))                # Initial Conditions
-startVel = np.array((5.0,5.0, 5.0))
+startPos = np.array((-3.0, 0.0, 0.0))                # Initial Conditions
+startVel = np.array((-0.1,-0.2, 0.2))
 
 time = []
 position = []
@@ -35,13 +36,15 @@ with open('traj.txt', 'w', 0) as text:              # Open a writeable text file
         v = v + a * dt                              # Integrals
         p = p + v * dt
         pVec = p.tolist()
-        position.append(pVec)
+        magnitude_position = np.linalg.norm(p)
+        position.append(magnitude_position)
         vVec = v.tolist()                           
         aVec = a.tolist()
         time.append(t)
         text.write(str((pVec, vVec, aVec)) + '\n')  # Data dump
+    
 
 
 
-plt.plot(time, position)
-plt.show
+##plt.plot(time, position)
+##show()
