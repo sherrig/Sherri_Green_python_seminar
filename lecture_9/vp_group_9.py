@@ -119,7 +119,7 @@ path = curve( color = color.cyan, radius = 0.1)   # define the particle's path
 
 n=0
 while n < len(pos) - 1:
- #       rate(100)# this line slows down to 100 updates per second and allows to see the animation
+        rate(100)# this line slows down to 100 updates per second and allows to see the animation
         path.append( pos = vector(pos[n]) )  # add points to the curve
         n = n + 1
 
